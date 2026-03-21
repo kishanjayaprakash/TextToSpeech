@@ -15,6 +15,9 @@
     --radius-card: 16px;
     --radius-btn: 14px;
     --radius-pill: 999px;
+    --highlight: #0d9488;
+    --highlight-text: #ffffff;
+    --highlight-glow: rgba(13, 148, 136, 0.4);
 }
 
 * {
@@ -64,7 +67,6 @@ body::after {
     to   { transform: translate(30px, -30px) scale(1.08); }
 }
 
-/* Hero section */
 .hero {
     width: 100%;
     min-height: 100vh;
@@ -78,7 +80,6 @@ body::after {
     z-index: 1;
 }
 
-/* Heading */
 .hero h1 {
     font-size: clamp(24px, 5vw, 44px);
     font-weight: 600;
@@ -92,7 +93,6 @@ body::after {
     color: #6241e5;
 }
 
-/*Display Div */
 .display-div {
     width: 100%;
     max-width: 800px;
@@ -107,7 +107,7 @@ body::after {
     outline: none;
     overflow-y: auto;
     overflow-x: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     transition: border 0.25s ease, box-shadow 0.25s ease;
     white-space: pre-wrap;
     word-break: break-word;
@@ -129,49 +129,78 @@ body::after {
     user-select: none;
 }
 
-/* Word spans in desktop*/
 .display-div .word {
     display: inline;
     border-radius: 4px;
     padding: 1px 0;
-    transition: background 0.15s ease, color 0.15s ease, opacity 0.2s ease;
+    transition: background 0.08s ease-out, opacity 0.2s ease-out, box-shadow 0.08s ease-out;
+    will-change: background, opacity;
 }
 
 .display-div .word.spoken {
     color: var(--text-muted);
-    opacity: 0.5;
+    opacity: 0.45;
+    transition: opacity 0.2s ease-out, color 0.2s ease-out;
 }
 
 .display-div .word.highlight {
-    background: var(--accent);
-    color: #ffffff;
+    background: var(--highlight);
+    color: var(--highlight-text);
     border-radius: 4px;
     padding: 1px 5px;
     margin: 0 -1px;
-    box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
-    animation: pulseHighlight 0.4s ease;
+    box-shadow: 0 0 10px var(--highlight-glow);
+    animation: pulseHighlight 0.18s ease-out forwards;
 }
 
 @keyframes pulseHighlight {
-    0%   { box-shadow: 0 0 0px rgba(139, 92, 246, 0); }
-    50%  { box-shadow: 0 0 16px rgba(139, 92, 246, 0.8); }
-    100% { box-shadow: 0 0 12px rgba(139, 92, 246, 0.6); }
+    0%   { background: #2dd4bf; box-shadow: 0 0 4px var(--highlight-glow); }
+    100% { background: var(--highlight); box-shadow: 0 0 10px var(--highlight-glow); }
 }
 
-/*SCROLLBAR */
 .display-div::-webkit-scrollbar { width: 6px; }
 .display-div::-webkit-scrollbar-track { background: transparent; }
 .display-div::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 999px; }
 .display-div::-webkit-scrollbar-thumb:hover { background: rgba(167,139,250,0.35); }
 
-/*Reading row in left side of progress bar */
+.clear-row {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 6px;
+}
+
+#clearBtn {
+    width: auto;
+    height: 32px;
+    padding: 0 14px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 100, 100, 0.25);
+    background: rgba(255, 80, 80, 0.08);
+    color: #f87171;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+#clearBtn:hover {
+    border-color: rgba(255, 100, 100, 0.55);
+    background: rgba(255, 80, 80, 0.16);
+    color: #fca5a5;
+    box-shadow: 0 0 0 2px rgba(255, 80, 80, 0.15);
+}
+
+#clearBtn:active { transform: scale(0.96); }
+
 .reading-row {
     width: 100%;
     max-width: 800px;
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: -8px;
+    margin-top: 0;
     margin-bottom: 10px;
     padding-left: 4px;
 }
@@ -191,7 +220,6 @@ body::after {
     overflow: hidden;
 }
 
-/*Progress bar with whitish fill */
 .progress-bar {
     height: 100%;
     width: 0%;
@@ -201,7 +229,6 @@ body::after {
     box-shadow: 0 0 6px var(--accent-glow);
 }
 
-/*File upload module*/
 .file-upload {
     width: 100%;
     max-width: 800px;
@@ -238,7 +265,6 @@ body::after {
     font-weight: 500;
 }
 
-/*Voice + speed row*/
 .row {
     width: 100%;
     max-width: 800px;
@@ -248,7 +274,6 @@ body::after {
     margin-bottom: 12px;
 }
 
-/* Control row*/
 .controls-row {
     width: 100%;
     max-width: 800px;
@@ -257,7 +282,6 @@ body::after {
     gap: 10px;
 }
 
-/* Select*/
 select {
     width: 100%;
     height: 55px;
@@ -291,7 +315,6 @@ select option {
     color: #fff;
 }
 
-/* button*/
 button {
     width: 100%;
     background: var(--bg-card);
@@ -367,7 +390,6 @@ button.btn-primary:active {
     transform: scale(0.98);
 }
 
-/* MOBILE — ≤ 600px */
 @media screen and (max-width: 600px) {
 
     .hero {
@@ -380,7 +402,11 @@ button.btn-primary:active {
         height: 220px;
         font-size: 15px;
         max-width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
+    }
+
+    .clear-row {
+        max-width: 100%;
     }
 
     .reading-row {
@@ -419,7 +445,6 @@ button.btn-primary:active {
         gap: 6px;
     }
 
-    /* Mobile: no highlight, just fade spoken words to grey */
     .display-div .word.highlight {
         background: none;
         color: #E5E7EB;
@@ -436,7 +461,6 @@ button.btn-primary:active {
     }
 }
 
-/* Download section */
 .download-section {
     width: 100%;
     max-width: 800px;
@@ -547,43 +571,36 @@ button.btn-primary:active {
     }
 }
 
-/*Sentence highlight styles — used on mobile only */
-
-/* Base sentence span — no styling by default */
 .display-div .sentence {
     display: inline;
     border-radius: 6px;
-    transition: background 0.2s ease, color 0.2s ease, opacity 0.3s ease;
+    transition: background 0.12s ease-out, color 0.12s ease-out, opacity 0.2s ease-out, box-shadow 0.12s ease-out;
+    will-change: background, opacity;
 }
 
-/* Already-read sentences fade out */
 .display-div .sentence.sentence-spoken {
     opacity: 0.35;
     color: #9CA3AF;
+    transition: opacity 0.2s ease-out, color 0.2s ease-out;
 }
 
-/*
-   MOBILE ONLY — sentence highlight
-   Inside @media (max-width: 600px)
-*/
 @media screen and (max-width: 600px) {
 
     .display-div .sentence.sentence-highlight {
-        background: rgba(124, 92, 252, 0.16);
-        color: #EDE9FE;
+        background: rgba(13, 148, 136, 0.25);
+        color: #ffffff;
         border-radius: 6px;
         padding: 2px 4px;
         margin: 0 -4px;
-        box-shadow: 0 0 0 1.5px rgba(124, 92, 252, 0.3);
-        animation: sentencePulse 0.35s ease;
+        box-shadow: 0 0 0 1.5px rgba(13, 148, 136, 0.45);
+        animation: sentencePulse 0.3s ease forwards;
     }
 
     @keyframes sentencePulse {
-        0%   { background: rgba(124, 92, 252, 0.32); }
-        100% { background: rgba(124, 92, 252, 0.16); }
+        0%   { background: rgba(13, 148, 136, 0.45); box-shadow: 0 0 0 1.5px rgba(13, 148, 136, 0.7); }
+        100% { background: rgba(13, 148, 136, 0.25); box-shadow: 0 0 0 1.5px rgba(13, 148, 136, 0.45); }
     }
 
-    /* Override: no word highlight on mobile */
     .display-div .word.highlight {
         background: none;
         color: #E5E7EB;
